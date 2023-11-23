@@ -4,22 +4,17 @@ import { useEffect, useState } from "react"
 import { Button, ListGroup } from "react-bootstrap"
 import { IngredientItem } from "./IngredientItem"
 import { IngredientForm } from "./IngredientForm"
+import { useDispatch, useSelector } from "react-redux"
+import { fetchIngredients, setIngredients } from "@/slices/ingredientSlice"
+import { AppDispatch, RootState } from "@/utils/store"
 
 export default function Ingredients() {
+    const dispatch = useDispatch<AppDispatch>()
     const [showForm, setShowForm] = useState(false);
-    const [ingredientItems, setIngredientItems] = useState<JSX.Element[] | null>(null)
-
-    const { errors, loading, doRequest } = useRequest<Ingredient[]>({
-        url: '/ingredient', method: 'get', onSuccess: (data) => {
-            const items = data.map((ingredient) => (
-                <IngredientItem key={`ingredient${ingredient.id}`} {...ingredient} />
-            ))
-            setIngredientItems(items)
-        }
-    })
+    const { items, loading, error } = useSelector(({ ingredient }: RootState) => ingredient)
 
     useEffect(() => {
-        doRequest()
+        dispatch(fetchIngredients())
     }, [])
 
     return (
@@ -29,10 +24,12 @@ export default function Ingredients() {
                 <h2>Ingredientes:</h2>
                 <Button size="sm" variant="success" onClick={() => setShowForm(true)}>Cadastrar Ingrediente</Button>
             </header>
-            {errors}
+            {error}
             {loading}
             <ListGroup>
-                {ingredientItems}
+                {items.map((ingredient) => (
+                    <IngredientItem key={`ingredient${ingredient.id}`} {...ingredient} />
+                ))}
             </ListGroup>
         </>
     )

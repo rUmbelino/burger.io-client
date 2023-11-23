@@ -1,7 +1,8 @@
 
+import { Error } from '@/components/Error';
+import { Loading } from '@/components/Loading';
 import axios from '@/utils/axios';
 import { useState } from 'react';
-import { Alert, Spinner } from 'react-bootstrap';
 
 interface UseRequestArgs<T> {
     url: string;
@@ -15,7 +16,7 @@ export default function useRequest<T>({ url, method, body, onSuccess }: UseReque
     const [loading, setLoading] = useState<JSX.Element | null>(null)
 
     const setLoadingComponent = () => {
-        setLoading(<Spinner className="d-block m-auto my-5" variant="primary" animation="border" />)
+        setLoading(<Loading />)
     }
 
     const clearLoadingComponent = () => {
@@ -36,12 +37,7 @@ export default function useRequest<T>({ url, method, body, onSuccess }: UseReque
             return response.data;
         } catch (err) {
             clearLoadingComponent()
-            setErrors(
-                <Alert variant="danger">
-                    <h4>Ooops...</h4>
-                    <p>An unexpected errror occured while fetching the data!</p>
-                </Alert>
-            );
+            setErrors(<Error />);
         }
     };
 
