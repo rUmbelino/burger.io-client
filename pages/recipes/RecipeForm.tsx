@@ -4,21 +4,28 @@ import { getFormValues } from "@/utils/getFormValues"
 import { FC, useRef } from "react"
 import { Button, FloatingLabel, Form } from "react-bootstrap"
 import { toast } from "react-toastify"
+import { IngredientFormSection } from "./IngredientFormSection"
 
 interface IngredientFormProps {
     show: boolean
     handleClose: () => void
 }
 
+const options = [
+    { value: '1', label: 'Batata 🥔' },
+    { value: '2', label: 'Tomate 🍅' },
+    { value: '3', label: 'Ovo 🥚' }
+]
+
+
 export const RecipeForm: FC<IngredientFormProps> = ({ show, handleClose }) => {
     const formRef = useRef<HTMLFormElement>(null)
-
-    const { Wrapper } = useModal({ show, handleClose, title: 'Cadastrar Ingrediente' })
+    const { Wrapper } = useModal({ show, handleClose, title: 'Cadastrar Lanche' })
     const { doRequest, errors, loading } = useRequest({
-        url: '/ingredient',
+        url: '/recipe',
         method: 'post',
         onSuccess: () => {
-            toast.success('Ingrediente cadastrado com sucesso!')
+            toast.success('Receita cadastrada com sucesso!')
             handleClose()
         }
     })
@@ -41,8 +48,8 @@ export const RecipeForm: FC<IngredientFormProps> = ({ show, handleClose }) => {
                 <FloatingLabel label="Icone" className="mb-3">
                     <Form.Control name="icon" type="text" placeholder="Icone" />
                 </FloatingLabel>
-
-                <Button className="float-end" variant="success" onClick={handleFormSubmit}>
+                <IngredientFormSection options={options} />
+                <Button className="float-end mt-3" variant="success" onClick={handleFormSubmit}>
                     Salvar
                 </Button>
             </Form>}
