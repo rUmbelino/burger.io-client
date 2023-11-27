@@ -2,8 +2,8 @@ import { useModal } from "@/hooks/useModal";
 import useRequest from "@/hooks/useRequest";
 import { getFormValues } from "@/utils/getFormValues";
 import { FC, useRef } from "react";
-import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { Button, FloatingLabel, Form } from "react-bootstrap";
 
 interface IngredientFormProps {
     show: boolean
@@ -22,7 +22,6 @@ export const IngredientForm: FC<IngredientFormProps> = ({ show, handleClose }) =
             handleClose()
         }
     })
-
 
     const handleFormSubmit = () => {
         if (formRef.current) {

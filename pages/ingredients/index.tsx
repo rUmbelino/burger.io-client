@@ -1,11 +1,9 @@
-import { Ingredient } from "@/@types/common"
-import useRequest from "@/hooks/useRequest"
 import { useEffect, useState } from "react"
 import { Button, ListGroup } from "react-bootstrap"
 import { IngredientItem } from "./IngredientItem"
 import { IngredientForm } from "./IngredientForm"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchIngredients, setIngredients } from "@/slices/ingredientSlice"
+import { fetchIngredients } from "@/slices/ingredientSlice"
 import { AppDispatch, RootState } from "@/utils/store"
 
 export default function Ingredients() {
@@ -25,7 +23,7 @@ export default function Ingredients() {
                 <Button size="sm" variant="success" onClick={() => setShowForm(true)}>Cadastrar Ingrediente</Button>
             </header>
             {error}
-            {loading}
+            {error === null && loading}
             <ListGroup>
                 {items.map((ingredient) => (
                     <IngredientItem key={`ingredient${ingredient.id}`} {...ingredient} />

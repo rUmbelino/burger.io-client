@@ -1,10 +1,9 @@
 import { FC, useState } from "react";
 import ReactSelect from "react-select";
 import { Button, Form } from "react-bootstrap";
-
-interface IngredientFormItemProps {
-    options: any[]
-}
+import { RecepieIngredient } from "@/@types/common";
+import { useSelector } from "react-redux";
+import { RootState } from "@/utils/store";
 
 interface Ingredient {
     id: string,
@@ -13,8 +12,17 @@ interface Ingredient {
 
 const emptyIngredient = { id: '', recipeAmount: '' }
 
-export const IngredientFormSection: FC<IngredientFormItemProps> = ({ options }) => {
+const convertIngredientInOptions = (list: RecepieIngredient[]) => {
+    return list.map(({ id, name, icon }) => ({
+        value: id.toString(),
+        label: `${name} ${icon}`
+    }))
+}
+
+export const IngredientFormSection = () => {
     const [ingredients, setIngredients] = useState<Ingredient[]>([emptyIngredient])
+    const { items } = useSelector((state: RootState) => state.ingredient)
+    const options: any[] = convertIngredientInOptions(items)
 
     const addIngredientToList = () => {
         setIngredients([...ingredients, emptyIngredient])

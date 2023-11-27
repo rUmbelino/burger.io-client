@@ -1,11 +1,11 @@
 import axios from "@/utils/axios";
-import { Ingredient } from "@/@types/common";
+import { Ingredient, RecepieIngredient } from "@/@types/common";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Error } from "@/components/Error";
 import { Loading } from "@/components/Loading";
 
 export interface IngredientState {
-    items: Ingredient[],
+    items: RecepieIngredient[],
     error: null | JSX.Element
     loading: null | JSX.Element
 }
@@ -25,7 +25,7 @@ export const ingredientSlice = createSlice({
     name: 'ingredient',
     initialState,
     reducers: {
-        setIngredients: (state, action: PayloadAction<Ingredient[]>) => {
+        setIngredients: (state, action: PayloadAction<RecepieIngredient[]>) => {
             state.items = action.payload
         }
     },

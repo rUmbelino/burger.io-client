@@ -11,13 +11,6 @@ interface IngredientFormProps {
     handleClose: () => void
 }
 
-const options = [
-    { value: '1', label: 'Batata 🥔' },
-    { value: '2', label: 'Tomate 🍅' },
-    { value: '3', label: 'Ovo 🥚' }
-]
-
-
 export const RecipeForm: FC<IngredientFormProps> = ({ show, handleClose }) => {
     const formRef = useRef<HTMLFormElement>(null)
     const { Wrapper } = useModal({ show, handleClose, title: 'Cadastrar Lanche' })
@@ -40,7 +33,7 @@ export const RecipeForm: FC<IngredientFormProps> = ({ show, handleClose }) => {
     return (
         <Wrapper>
             {errors}
-            {loading}
+            {errors === null && loading}
             {loading === null && <Form ref={formRef}>
                 <FloatingLabel controlId="floatingInput" label="Nome" className="mb-3">
                     <Form.Control name="name" type="text" placeholder="Nome" />
@@ -48,7 +41,7 @@ export const RecipeForm: FC<IngredientFormProps> = ({ show, handleClose }) => {
                 <FloatingLabel label="Icone" className="mb-3">
                     <Form.Control name="icon" type="text" placeholder="Icone" />
                 </FloatingLabel>
-                <IngredientFormSection options={options} />
+                <IngredientFormSection />
                 <Button className="float-end mt-3" variant="success" onClick={handleFormSubmit}>
                     Salvar
                 </Button>
