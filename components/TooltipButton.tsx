@@ -26,7 +26,7 @@ export const TooltipButton: FC<PropsWithChildren<TooltipButtonProps>> = props =>
 				{btnDescription}
 			</Button>
 			<Overlay target={target.current} show={show} placement="bottom">
-				{({ ...props }) => (
+				{({ show, arrowProps, hasDoneInitialMeasure, ...props }) => (
 					<div
 						{...props}
 						style={{
@@ -48,7 +48,7 @@ export const TooltipButton: FC<PropsWithChildren<TooltipButtonProps>> = props =>
 						<br />
 						{children}
 						<br />
-						<ButtonGroup className="d-block text-center my-3" size="sm">
+						<ButtonGroup className="d-block text-center my-2" size="sm">
 							<Button variant="secondary" onClick={() => setShow(!show)}>
 								Não
 							</Button>

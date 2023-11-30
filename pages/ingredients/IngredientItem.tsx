@@ -4,7 +4,7 @@ import { IconElement } from '@/components/IconElement';
 import { TooltipButton } from '@/components/TooltipButton';
 import { deleteIngredient } from '@/slices/ingredientSlice';
 import { AppDispatch } from '@/utils/store';
-import { ListGroup } from 'react-bootstrap';
+import { Button, ListGroup } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
 export const IngredientItem: React.FC<Ingredient> = ({ id, icon, storedAmount, name }) => {
@@ -16,11 +16,10 @@ export const IngredientItem: React.FC<Ingredient> = ({ id, icon, storedAmount, n
 				<IconElement icon={icon} description={`${name} - ${storedAmount} em estoque`} />
 				<div className="d-flex flex-column">
 					<AmountSelector initialAmount={5} message="Atualizar Estoque:" minimumAmount={0} />
-
+					<Button variant="outline-success mb-2">Salvar</Button>
 					<TooltipButton
-						className="my-3"
 						variant="outline-danger"
-						btnDescription="Remover Ingrediente"
+						btnDescription="Deletar"
 						onConfirm={() => {
 							dispatch(deleteIngredient(id));
 						}}
