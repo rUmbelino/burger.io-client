@@ -4,7 +4,7 @@ import { IconElement } from '@/components/IconElement';
 import { TooltipButton } from '@/components/TooltipButton';
 import { deleteIngredient } from '@/slices/ingredientSlice';
 import { AppDispatch } from '@/utils/store';
-import { Button, ListGroup } from 'react-bootstrap';
+import { Button, ButtonGroup, ListGroup } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
 export const IngredientItem: React.FC<Ingredient> = ({ id, icon, storedAmount, name }) => {
@@ -16,16 +16,18 @@ export const IngredientItem: React.FC<Ingredient> = ({ id, icon, storedAmount, n
 				<IconElement icon={icon} description={`${name} - ${storedAmount} em estoque`} />
 				<div className="d-flex flex-column">
 					<AmountSelector initialAmount={5} message="Atualizar Estoque:" minimumAmount={0} />
-					<Button variant="outline-success mb-2">Salvar</Button>
-					<TooltipButton
-						variant="outline-danger"
-						btnDescription="Deletar"
-						onConfirm={() => {
-							dispatch(deleteIngredient(id));
-						}}
-					>
-						<small>Deseja remover este item de maneira permanente?</small>
-					</TooltipButton>
+					<ButtonGroup className="px-2">
+						<Button variant="outline-success">Salvar</Button>
+						<TooltipButton
+							variant="outline-danger"
+							btnDescription="Deletar"
+							onConfirm={() => {
+								dispatch(deleteIngredient(id));
+							}}
+						>
+							<small>Deseja remover este item de maneira permanente?</small>
+						</TooltipButton>
+					</ButtonGroup>
 				</div>
 			</div>
 		</ListGroup.Item>
