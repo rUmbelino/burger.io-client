@@ -7,20 +7,19 @@ import {
 	showModal,
 	updateStateItemQuantity,
 } from '@/utils/cart';
+import { RequestState } from '@/utils/requestState';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface CartState {
 	items: Recepie[];
 	isModalOpen: boolean;
-	error: null | JSX.Element;
-	loading: null | JSX.Element;
+	state: RequestState;
 }
 
 const initialState: CartState = {
 	items: [],
 	isModalOpen: false,
-	error: null,
-	loading: null,
+	state: RequestState.IDLE,
 };
 
 interface UpdateItemQuantityArgs {

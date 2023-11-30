@@ -1,19 +1,16 @@
 import axios from '@/utils/axios';
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RecepieIngredient } from '@/@types/common';
-import { Error } from '@/components/Error';
-import { Loading } from '@/components/Loading';
+import { RequestState } from '@/utils/requestState';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export interface IngredientState {
+	state: RequestState;
 	items: RecepieIngredient[];
-	error: null | JSX.Element;
-	loading: null | JSX.Element;
 }
 
 const initialState: IngredientState = {
 	items: [],
-	error: null,
-	loading: null,
+	state: RequestState.IDLE,
 };
 
 export const fetchIngredients = createAsyncThunk('fetch:ingredients', async () => {
@@ -37,26 +34,24 @@ export const ingredientSlice = createSlice({
 	},
 	extraReducers: builder => {
 		builder.addCase(fetchIngredients.fulfilled, (state, action) => {
-			state.error = null;
-			state.loading = null;
+			state.state = RequestState.COMPLETED;
 			state.items = action.payload;
 		}),
-			builder.addCase(fetchIngredients.pending, (state, action) => {
-				state.loading = <Loading />;
+			builder.addCase(fetchIngredients.pending, state => {
+				state.state = RequestState.LOADING;
 			}),
-			builder.addCase(fetchIngredients.rejected, (state, action) => {
-				state.error = <Error />;
+			builder.addCase(fetchIngredients.rejected, state => {
+				state.state = RequestState.ERROR;
 			}),
 			builder.addCase(deleteIngredient.fulfilled, (state, action) => {
-				state.error = null;
-				state.loading = null;
+				state.state = RequestState.COMPLETED;
 				state.items = action.payload;
 			}),
-			builder.addCase(deleteIngredient.pending, (state, action) => {
-				state.loading = <Loading />;
+			builder.addCase(deleteIngredient.pending, state => {
+				state.state = RequestState.LOADING;
 			}),
-			builder.addCase(deleteIngredient.rejected, (state, action) => {
-				state.error = <Error />;
+			builder.addCase(deleteIngredient.rejected, state => {
+				state.state = RequestState.ERROR;
 			});
 	},
 });

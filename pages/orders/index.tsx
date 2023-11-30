@@ -1,4 +1,4 @@
-import { Accordion, Button, ListGroup, Spinner, Table } from 'react-bootstrap';
+import { Accordion, Button, ListGroup, Spinner } from 'react-bootstrap';
 import { useOrders } from './hocks/useOrders';
 import { IconElement } from '@/components/IconElement';
 import { useDispatch } from 'react-redux';
