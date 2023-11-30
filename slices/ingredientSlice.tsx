@@ -1,6 +1,6 @@
 import axios from '@/utils/axios';
-import { Ingredient, RecepieIngredient } from '@/@types/common';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { RecepieIngredient } from '@/@types/common';
 import { Error } from '@/components/Error';
 import { Loading } from '@/components/Loading';
 
@@ -22,7 +22,6 @@ export const fetchIngredients = createAsyncThunk('fetch:ingredients', async () =
 });
 
 export const deleteIngredient = createAsyncThunk('delete:ingredients', async (id: number) => {
-	console.log('OIII');
 	await axios.get(`/ingredient/${id}`);
 	const { data } = await axios.get('/ingredient');
 	return data;

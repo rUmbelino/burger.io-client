@@ -8,15 +8,10 @@ interface TooltipButtonProps {
 	onConfirm?: () => void;
 }
 
-export const TooltipButton: FC<PropsWithChildren<TooltipButtonProps>> = ({
-	children,
-	variant,
-	className,
-	onConfirm,
-	btnDescription,
-}) => {
+export const TooltipButton: FC<PropsWithChildren<TooltipButtonProps>> = props => {
 	const [show, setShow] = useState(false);
 	const target = useRef<HTMLButtonElement>(null);
+	const { children, variant, className, onConfirm, btnDescription } = props;
 
 	const handleConfirm = () => {
 		setShow(!show);
