@@ -6,7 +6,7 @@ import RecipeItem from './RecipeItem';
 import { RecipeForm } from './RecipeForm';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/utils/store';
-import { addItemToCart } from '@/slices/CartSlice';
+import { addItemToCart } from '@/slices/CartReducer';
 
 export default function Recepies() {
 	const dispatch = useDispatch<AppDispatch>();

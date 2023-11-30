@@ -1,4 +1,4 @@
-import { closeModal, openModal } from '@/slices/CartSlice';
+import { closeModal, openModal, updateItemQuantity } from '@/slices/CartReducer';
 import { AppDispatch, RootState } from '@/utils/store';
 import { Button, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,8 +9,8 @@ export const Cart = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const { items, isModalOpen } = useSelector(({ cart }: RootState) => cart);
 
-	const handleClose = () => dispatch(closeModal());
 	const handleShow = () => dispatch(openModal());
+	const handleClose = () => dispatch(closeModal());
 
 	const modalBody = () => {
 		if (items.length === 0) {
@@ -20,7 +20,13 @@ export const Cart = () => {
 		return items.map(({ id, icon, name, quantity }) => (
 			<div key={id} className="d-flex justify-content-between">
 				<IconElement icon={icon} description={name} />
-				<AmountSelector message="Quantidade:" minimumAmount={1} initialAmount={quantity} />
+				<AmountSelector
+					message="Quantidade:"
+					minimumAmount={1}
+					initialAmount={quantity}
+					onAdd={(quantity: number) => dispatch(updateItemQuantity({ id, quantity }))}
+					onSubtract={(quantity: number) => dispatch(updateItemQuantity({ id, quantity }))}
+				/>
 			</div>
 		));
 	};

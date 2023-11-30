@@ -1,8 +1,12 @@
 import { Accordion, Button, ListGroup, Spinner, Table } from 'react-bootstrap';
 import { useOrders } from './hocks/useOrders';
 import { IconElement } from '@/components/IconElement';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/utils/store';
+import { addItemsToCart } from '@/slices/CartReducer';
 
 export default function Orders() {
+	const dispatch = useDispatch<AppDispatch>();
 	const { isLoading, isCompleted, orders } = useOrders();
 
 	const acordionItems = orders.reverse().map(({ id, recepies }) => (
@@ -17,7 +21,7 @@ export default function Orders() {
 					</ListGroup>
 				))}
 				<div className="d-flex flex-row-reverse">
-					<Button variant="success" className="">
+					<Button variant="success" onClick={() => dispatch(addItemsToCart(recepies))}>
 						Pedir Novamente
 					</Button>
 				</div>

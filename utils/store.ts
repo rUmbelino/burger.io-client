@@ -1,4 +1,4 @@
-import { cartReducer } from '@/slices/CartSlice';
+import { cartReducer } from '@/slices/CartReducer';
 import { ingredientReducer } from '@/slices/ingredientSlice';
 import { configureStore } from '@reduxjs/toolkit';
 
