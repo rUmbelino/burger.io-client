@@ -1,15 +1,12 @@
 import { Recepie } from '@/@types/common';
 import useRequest from '@/hooks/useRequest';
-import { FormEvent, useEffect, useState } from 'react';
-import { Accordion, Button, ButtonGroup } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Accordion, Button } from 'react-bootstrap';
 import RecipeItem from './RecipeItem';
 import { RecipeForm } from './RecipeForm';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/utils/store';
-import { addItemToCart } from '@/slices/CartReducer';
+import { RecipeActionButtons } from './RecipeActionButtons';
 
 export default function Recepies() {
-	const dispatch = useDispatch<AppDispatch>();
 	const [showFormModal, setShowModal] = useState(false);
 	const [recipeItems, setRecipeItems] = useState<JSX.Element[] | null>(null);
 
@@ -17,29 +14,9 @@ export default function Recepies() {
 		url: '/recipe',
 		method: 'get',
 		onSuccess(data) {
-			const recepies = data.map(recipe => {
-				const handleOrderRecipe = (e: FormEvent) => {
-					e.stopPropagation();
-					dispatch(addItemToCart(recipe));
-				};
-
-				return (
-					<RecipeItem
-						key={`recipe${recipe.id}`}
-						{...recipe}
-						headerActionElement={
-							<ButtonGroup className="mx-3">
-								<span className="btn btn-outline-danger" onClick={e => e.stopPropagation()}>
-									Remover
-								</span>
-								<span className="btn btn-outline-success" onClick={handleOrderRecipe}>
-									Pedir
-								</span>
-							</ButtonGroup>
-						}
-					/>
-				);
-			});
+			const recepies = data.map(recipe => (
+				<RecipeItem {...recipe} key={`recipe${recipe.id}`} headerActionElement={<RecipeActionButtons {...recipe} />} />
+			));
 			setRecipeItems(recepies);
 		},
 	});

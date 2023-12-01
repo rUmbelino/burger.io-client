@@ -1,19 +1,17 @@
-import { RecepieIngredient } from "@/@types/common"
+import { RecepieIngredient } from '@/@types/common';
+import { IconElement } from '@/components/IconElement';
 
 const RecipeIngredientItem: React.FC<RecepieIngredient> = ({ icon, storedAmount, name, recipeAmount }) => {
-    return (
-        <div className="d-flex">
-            <div>
-                <i className="fs-3 pe-2">{icon}</i>
-                <span>{name}</span>
-            </div>
-            <div className="ms-3">
-                <span>{storedAmount} em estoque</span>
-                <br />
-                <span>{recipeAmount} são usados em cada receita</span>
-            </div>
-        </div>
-    )
-}
+	return (
+		<div className="d-flex">
+			<IconElement icon={icon} description={name} />
+			<div className="ms-3">
+				<span>{storedAmount} em estoque</span>
+				<br />
+				<span>{recipeAmount} são usados em cada receita</span>
+			</div>
+		</div>
+	);
+};
 
-export default RecipeIngredientItem
+export default RecipeIngredientItem;
