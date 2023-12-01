@@ -1,4 +1,5 @@
 import axios from '@/utils/axios';
+import { toast } from 'react-toastify';
 import { RecepieIngredient } from '@/@types/common';
 import { RequestState } from '@/utils/requestState';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
@@ -41,9 +42,11 @@ export const ingredientSlice = createSlice({
 				state.state = RequestState.LOADING;
 			}),
 			builder.addCase(fetchIngredients.rejected, state => {
+				toast.error('Ops! Ocorreu um erro ao listar os ingredientes');
 				state.state = RequestState.ERROR;
 			}),
 			builder.addCase(deleteIngredient.fulfilled, (state, action) => {
+				toast.success('Ingrediente removido com sucesso!');
 				state.state = RequestState.COMPLETED;
 				state.items = action.payload;
 			}),
@@ -51,6 +54,7 @@ export const ingredientSlice = createSlice({
 				state.state = RequestState.LOADING;
 			}),
 			builder.addCase(deleteIngredient.rejected, state => {
+				toast.error('Ops! Ocorreu um erro ao deletar o ingrediente');
 				state.state = RequestState.ERROR;
 			});
 	},

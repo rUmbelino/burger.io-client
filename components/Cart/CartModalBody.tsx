@@ -19,8 +19,8 @@ export const CartModalBody = () => {
 	}
 
 	return items.map(({ id, icon, name, quantity }, index) => (
-		<>
-			<div key={id} className="d-flex justify-content-between">
+		<div key={id}>
+			<div className="d-flex justify-content-between">
 				<IconElement icon={icon} description={name} />
 				<AmountSelector
 					message="Quantidade:"
@@ -31,6 +31,6 @@ export const CartModalBody = () => {
 			</div>
 
 			{items.length !== index + 1 && <hr />}
-		</>
+		</div>
 	));
 };
