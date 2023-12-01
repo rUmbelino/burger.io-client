@@ -3,13 +3,19 @@ import { AmountSelector } from '../AmountSelector';
 import { IconElement } from '../IconElement';
 import { AppDispatch, RootState } from '@/utils/store';
 import { updateItemQuantity } from '@/slices/CartReducer';
+import { RequestState } from '@/utils/requestState';
+import { Loading } from '../Loading';
 
 export const CartModalBody = () => {
 	const dispatch = useDispatch<AppDispatch>();
-	const { items } = useSelector(({ cart }: RootState) => cart);
+	const { items, state } = useSelector(({ cart }: RootState) => cart);
+
+	if (state === RequestState.LOADING) {
+		return <Loading />;
+	}
 
 	if (items.length === 0) {
-		return <h3>Seu carrinho esta vazio!</h3>;
+		return <p className="my-3">Seu carrinho esta vazio!</p>;
 	}
 
 	return items.map(({ id, icon, name, quantity }, index) => (
