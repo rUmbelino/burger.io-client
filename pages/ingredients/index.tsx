@@ -27,9 +27,10 @@ export default function Ingredients() {
 			</header>
 			<StoreState state={state} />
 			<ListGroup>
-				{items.map(ingredient => (
-					<IngredientItem key={`ingredient${ingredient.id}`} {...ingredient} />
-				))}
+				{items.map(ingredient => {
+					console.log(ingredient);
+					return <IngredientItem key={`ingredient${ingredient.id}`} {...ingredient} />;
+				})}
 			</ListGroup>
 		</>
 	);

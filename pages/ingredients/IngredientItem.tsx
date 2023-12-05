@@ -10,7 +10,7 @@ import { Button, ButtonGroup, ListGroup } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
-export const IngredientItem: React.FC<Ingredient> = ({ id, icon, storedAmount, name }) => {
+export const IngredientItem: React.FC<Ingredient> = ({ id, icon, name, storedAmount }) => {
 	const dispatch = useDispatch<AppDispatch>();
 	const [updatedAmount, setUpdatedAmount] = useState(storedAmount);
 

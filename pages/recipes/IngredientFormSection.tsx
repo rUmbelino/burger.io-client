@@ -46,7 +46,7 @@ export const IngredientFormSection = () => {
 					Add Ingredient
 				</Button>
 			</div>
-			{ingredients.map((k, index) => (
+			{ingredients.map(({ id }, index) => (
 				<div className="m-3 d-flex justify-content-between align-items-end" key={`ingredient${index}`}>
 					<Button disabled={index === 0} variant="outline-danger" onClick={() => removeIngredientFromList(index)}>
 						X
@@ -66,6 +66,7 @@ export const IngredientFormSection = () => {
 						<Form.Control
 							name={`ingredient_${index}_recipeAmount`}
 							type="number"
+							min={1}
 							value={ingredients[index].recipeAmount}
 							onChange={event => updateIngredientListItem(index, 'recipeAmount', event.target.value)}
 						/>

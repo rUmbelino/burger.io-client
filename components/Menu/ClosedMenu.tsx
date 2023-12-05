@@ -1,16 +1,14 @@
-import { FC } from "react"
-import { Button } from "react-bootstrap"
+import { FC } from 'react';
+import { Button } from 'react-bootstrap';
 
 interface ClosedMenuProps {
-    handleOpenMenu: () => void
+	handleOpenMenu: () => void;
 }
 
 const ClosedMenu: FC<ClosedMenuProps> = ({ handleOpenMenu }) => (
-    <div className="p-2" >
-        <Button variant="outline-primary" onClick={handleOpenMenu}>
-            ☰
-        </Button>
-    </div>
-)
+	<Button className="m-2" data-cy="open-menu-btn" variant="outline-primary" onClick={handleOpenMenu}>
+		☰
+	</Button>
+);
 
-export default ClosedMenu
+export default ClosedMenu;
