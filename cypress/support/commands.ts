@@ -35,3 +35,22 @@
 //     }
 //   }
 // }
+
+Cypress.Commands.add('navigateToPage', (name: string) => {
+	cy.get('[data-cy="menu-container"]')
+		.then($el => {
+			if ($el.hasClass('menu-closed')) {
+				cy.get('[data-cy="open-menu-btn"]').click();
+				cy.wait(500);
+			}
+		})
+		.then(() => {
+			cy.get('.list-group-item').contains(name).click();
+		});
+});
+
+declare namespace Cypress {
+	interface Chainable {
+		navigateToPage(name: string): Chainable;
+	}
+}

@@ -24,7 +24,7 @@ const OppenedMenu: FC<OppenedMenuProps> = ({ handleCloseMenu }) => {
 	return (
 		<div
 			className="p-4"
-			data-cy="oppened-menu-conteiner"
+			data-cy="oppened-menu"
 			style={{ borderRight: '1px solid var(--bs-gray-300)', height: '100vh' }}
 		>
 			<CloseButton className="float-end" style={{ fontSize: '12px' }} onClick={handleCloseMenu} />

@@ -17,9 +17,10 @@ const foregroundStyle = {
 
 const Menu = () => {
 	const [isOpen, setIsOpen] = useState(false);
+	const menuClass = isOpen ? 'menu-open' : 'menu-closed';
 
 	return (
-		<div className="position-relative overflow-hidden">
+		<div data-cy="menu-container" className={`position-relative overflow-hidden ${menuClass}`}>
 			<Animate
 				delay={0}
 				duration={0.5}
