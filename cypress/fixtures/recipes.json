@@ -1,0 +1,16 @@
+[
+	{
+		"id": 1,
+		"name": "French Fries",
+		"icon": "🍟",
+		"ingredients": [
+			{
+				"id": 1,
+				"name": "Potato",
+				"storedAmount": 100,
+				"recipeAmount": 5,
+				"icon": "🥔"
+			}
+		]
+	}
+]

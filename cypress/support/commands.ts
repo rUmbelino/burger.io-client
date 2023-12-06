@@ -49,8 +49,13 @@ Cypress.Commands.add('navigateToPage', (name: string) => {
 		});
 });
 
+Cypress.Commands.add('getApiPath', () => {
+	return 'https://virtserver.swaggerhub.com/UMBELINO12897/burg.io/1.0.1';
+});
+
 declare namespace Cypress {
 	interface Chainable {
+		getApiPath(): string;
 		navigateToPage(name: string): Chainable;
 	}
 }

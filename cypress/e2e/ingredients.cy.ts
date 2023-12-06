@@ -6,16 +6,15 @@ const API_PATH = 'https://virtserver.swaggerhub.com/UMBELINO12897/burg.io/1.0.1'
 describe('ingredints spec', () => {
 	beforeEach(() => {
 		cy.fixture('ingredientList').then(body => {
+			cy.intercept('PUT', `${API_PATH}/ingredient/*`, { statusCode: 200 });
+			cy.intercept('POST', `${API_PATH}/ingredient`, { statusCode: 200 });
+			cy.intercept('DELETE', `${API_PATH}/ingredient/*`, { statusCode: 200 });
 			cy.intercept('GET', `${API_PATH}/ingredient`, {
 				statusCode: 200,
 				body,
 			});
 
 			cy.visit('/ingredients');
-
-			cy.intercept('PUT', `${API_PATH}/ingredient/*`, { statusCode: 200 });
-			cy.intercept('POST', `${API_PATH}/ingredient`, { statusCode: 200 });
-			cy.intercept('DELETE', `${API_PATH}/ingredient/*`, { statusCode: 200 });
 		});
 	});
 
@@ -70,7 +69,7 @@ describe('ingredints spec', () => {
 			cy.get('.modal-dialog').should('not.exist');
 		});
 
-		it.only('register a new Ingredient', () => {
+		it('register a new Ingredient', () => {
 			cy.get('button').contains('Cadastrar Ingrediente').click();
 			cy.wait(500);
 

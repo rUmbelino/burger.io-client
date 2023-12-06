@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ReactSelect from 'react-select';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/utils/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/utils/store';
 import { Button, Form } from 'react-bootstrap';
 import { RecepieIngredient } from '@/@types/common';
+import { fetchIngredients } from '@/slices/ingredientSlice';
 
 interface Ingredient {
 	id: string;
@@ -20,9 +21,20 @@ const convertIngredientInOptions = (list: RecepieIngredient[]) => {
 };
 
 export const IngredientFormSection = () => {
+	const dispatch = useDispatch<AppDispatch>();
 	const [ingredients, setIngredients] = useState<Ingredient[]>([{ ...emptyIngredient }]);
 	const { items } = useSelector((state: RootState) => state.ingredient);
 	const options: any[] = convertIngredientInOptions(items);
+
+	const fetchOptions = useRef(() => {
+		if (items.length === 0) {
+			dispatch(fetchIngredients());
+		}
+	});
+
+	useEffect(() => {
+		fetchOptions.current();
+	}, []);
 
 	const addIngredientToList = () => {
 		setIngredients([...ingredients, { ...emptyIngredient }]);
@@ -54,8 +66,8 @@ export const IngredientFormSection = () => {
 					<Form.Group className="mx-3" style={{ flexGrow: 2 }}>
 						<Form.Label>Ingrediente:</Form.Label>
 						<ReactSelect
-							options={options}
 							value={id}
+							options={options}
 							name={`ingredient_${index}_id`}
 							placeholder="Selecione o ingrediente"
 							onChange={newValue => updateIngredientListItem(index, 'id', newValue)}
