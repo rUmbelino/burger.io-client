@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import ReactSelect from 'react-select';
-import { Button, Form } from 'react-bootstrap';
-import { RecepieIngredient } from '@/@types/common';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/utils/store';
+import { Button, Form } from 'react-bootstrap';
+import { RecepieIngredient } from '@/@types/common';
 
 interface Ingredient {
 	id: string;
@@ -20,12 +20,12 @@ const convertIngredientInOptions = (list: RecepieIngredient[]) => {
 };
 
 export const IngredientFormSection = () => {
-	const [ingredients, setIngredients] = useState<Ingredient[]>([emptyIngredient]);
+	const [ingredients, setIngredients] = useState<Ingredient[]>([{ ...emptyIngredient }]);
 	const { items } = useSelector((state: RootState) => state.ingredient);
 	const options: any[] = convertIngredientInOptions(items);
 
 	const addIngredientToList = () => {
-		setIngredients([...ingredients, emptyIngredient]);
+		setIngredients([...ingredients, { ...emptyIngredient }]);
 	};
 
 	const removeIngredientFromList = (index: number) => {
@@ -46,7 +46,7 @@ export const IngredientFormSection = () => {
 					Add Ingredient
 				</Button>
 			</div>
-			{ingredients.map(({ id }, index) => (
+			{ingredients.map(({ id, recipeAmount }, index) => (
 				<div className="m-3 d-flex justify-content-between align-items-end" key={`ingredient${index}`}>
 					<Button disabled={index === 0} variant="outline-danger" onClick={() => removeIngredientFromList(index)}>
 						X
@@ -55,19 +55,19 @@ export const IngredientFormSection = () => {
 						<Form.Label>Ingrediente:</Form.Label>
 						<ReactSelect
 							options={options}
+							value={id}
 							name={`ingredient_${index}_id`}
 							placeholder="Selecione o ingrediente"
-							value={ingredients[index].id}
 							onChange={newValue => updateIngredientListItem(index, 'id', newValue)}
 						/>
 					</Form.Group>
 					<Form.Group style={{ flex: 1 }}>
 						<Form.Label>Quantidade:</Form.Label>
 						<Form.Control
-							name={`ingredient_${index}_recipeAmount`}
-							type="number"
 							min={1}
-							value={ingredients[index].recipeAmount}
+							type="number"
+							name={`ingredient_${index}_recipeAmount`}
+							value={recipeAmount}
 							onChange={event => updateIngredientListItem(index, 'recipeAmount', event.target.value)}
 						/>
 					</Form.Group>
