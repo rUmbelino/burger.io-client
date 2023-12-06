@@ -3,6 +3,8 @@ import ingredients from '../fixtures/ingredientList.json';
 
 describe('recipes spec', () => {
 	beforeEach(() => {
+		cy.intercept('POST', `${cy.getApiPath()}/recipe`, { statusCode: 200 });
+
 		cy.intercept('GET', `${cy.getApiPath()}/recipe`, {
 			statusCode: 200,
 			body: recipes,
@@ -31,7 +33,7 @@ describe('recipes spec', () => {
 		});
 	});
 
-	it.only('creates a new recipe', () => {
+	it('creates a new recipe', () => {
 		const [recipe] = recipes;
 		cy.get('button').contains('Cadastrar Lanche').click();
 		cy.wait(500);
