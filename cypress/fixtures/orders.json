@@ -1,0 +1,19 @@
+[
+	{
+		"id": 1,
+		"recepies": [
+			{
+				"id": 1,
+				"name": "French Fries",
+				"quantity": 2,
+				"icon": "🍟"
+			},
+			{
+				"id": 2,
+				"name": "Veg Burger",
+				"icon": "🍔",
+				"quantity": 2
+			}
+		]
+	}
+]
