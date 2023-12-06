@@ -1,0 +1,26 @@
+[
+	{
+		"id": 1,
+		"name": "Potato",
+		"storedAmount": 100,
+		"icon": "🥔"
+	},
+	{
+		"id": 2,
+		"name": "Mushroom",
+		"storedAmount": 40,
+		"icon": "🍄"
+	},
+	{
+		"id": 3,
+		"name": "Carrot",
+		"storedAmount": 22,
+		"icon": "🥕"
+	},
+    {
+        "id": 4,
+        "name": "Tomate",
+        "icon": "🍅",
+        "storedAmount": 25
+      }
+]

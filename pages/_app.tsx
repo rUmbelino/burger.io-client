@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<ToastContainer />
 				<div className="d-flex">
 					<Menu {...pageProps} />
-					<Container className="py-3">
+					<Container data-cy="page-container" className="py-3">
 						<Cart />
 						<Component {...pageProps} />
 					</Container>

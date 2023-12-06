@@ -43,6 +43,7 @@ export const TooltipButton: FC<PropsWithChildren<TooltipButtonProps>> = props =>
 				{({ show, arrowProps, hasDoneInitialMeasure, ...props }) => (
 					<div
 						{...props}
+						data-cy="tooltip"
 						style={{
 							position: 'absolute',
 							backgroundColor: 'var(--toastify-color-error)',

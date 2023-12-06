@@ -43,8 +43,8 @@ export const IngredientItem: React.FC<Ingredient> = ({ id, icon, name, storedAmo
 				<IconElement icon={icon} description={`${name} - ${storedAmount} em estoque`} />
 				<div className="d-flex flex-column">
 					<AmountSelector
-						initialAmount={5}
 						minimumAmount={0}
+						initialAmount={storedAmount}
 						message="Atualizar Estoque:"
 						onUpdateAmount={amount => setUpdatedAmount(amount)}
 					/>

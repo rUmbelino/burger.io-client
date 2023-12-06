@@ -29,7 +29,7 @@ export const AmountSelector: FC<AmountSelectorProps> = props => {
 	const handleSubtract = buildAmountHandler(setAmount, onUpdateAmount);
 
 	return (
-		<div className="my-2">
+		<div data-cy="amount-selector" className="my-2">
 			<p className="text-center mb-2">{message}</p>
 			<div className="d-flex justify-content-around align-items-center">
 				<Button variant="outline-danger" disabled={minimumDisabled} onClick={() => handleSubtract(amount - 1)}>
