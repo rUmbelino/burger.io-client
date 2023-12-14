@@ -2,7 +2,7 @@ import orders from '../fixtures/orders.json';
 
 describe('orders spec', () => {
 	beforeEach(() => {
-		cy.intercept('POST', `${cy.getApiPath()}/order`, { statusCode: 200, body: orders });
+		cy.intercept('POST', `${Cypress.env('apiUrl')}/order`, { statusCode: 200, body: orders });
 
 		cy.visit('/orders');
 		cy.wait(500);

@@ -4,8 +4,8 @@ describe('cart spec', () => {
 	beforeEach(() => {
 		cy.visit('/recipes');
 
-		cy.intercept('POST', `${cy.getApiPath()}/order`, { statusCode: 200 });
-		cy.intercept('GET', `${cy.getApiPath()}/recipe`, {
+		cy.intercept('POST', `${Cypress.env('apiUrl')}/order`, { statusCode: 200 });
+		cy.intercept('GET', `${Cypress.env('apiUrl')}/recipe`, {
 			statusCode: 200,
 			body: recipes,
 		});
