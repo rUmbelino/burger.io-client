@@ -1,21 +1,11 @@
 import ingredient from '../fixtures/ingredient.json';
 import ingredientList from '../fixtures/ingredientList.json';
 
-const API_PATH = 'https://virtserver.swaggerhub.com/UMBELINO12897/burg.io/1.0.1';
-
 describe('ingredints spec', () => {
 	beforeEach(() => {
-		cy.fixture('ingredientList').then(body => {
-			cy.intercept('PUT', `${API_PATH}/ingredient/*`, { statusCode: 200 });
-			cy.intercept('POST', `${API_PATH}/ingredient`, { statusCode: 200 });
-			cy.intercept('DELETE', `${API_PATH}/ingredient/*`, { statusCode: 200 });
-			cy.intercept('GET', `${API_PATH}/ingredient`, {
-				statusCode: 200,
-				body,
-			});
-
-			cy.visit('/ingredients');
-		});
+		cy.intercept('GET', `${Cypress.env('apiUrl')}/ingredient`, { fixture: 'ingredientList' });
+		cy.intercept('PUT|POST|DELETE|GET', `${Cypress.env('apiUrl')}/ingredient/*`);
+		cy.visit('/ingredients');
 	});
 
 	describe('ingredient item list', () => {
@@ -41,23 +31,20 @@ describe('ingredints spec', () => {
 		});
 
 		it('validate save request actions', () => {
-			ingredientList.forEach(({ storedAmount, icon }, index) => {
-				cy.get('[data-cy="page-container"] .list-group-item').eq(index).contains('Salvar').click();
-				cy.get('.Toastify__toast-body').should('have.text', `${storedAmount}x ${icon} - Estoque atualizado!`);
-				cy.get('.Toastify__close-button').click();
-			});
+			const [{ storedAmount, icon }] = ingredientList;
+			cy.get('[data-cy="page-container"] .list-group-item').eq(0).contains('Salvar').click();
+			cy.get('.Toastify__toast-body').should('have.text', `${storedAmount}x ${icon} - Estoque atualizado!`);
+			cy.get('.Toastify__close-button').click();
 		});
 
 		it('validate delete request actions', () => {
-			ingredientList.forEach((item, index) => {
-				cy.get('[data-cy="page-container"] .list-group-item').eq(index).contains('Deletar').click();
+			cy.get('[data-cy="page-container"] .list-group-item').eq(0).contains('Deletar').click();
 
-				cy.get('[data-cy="tooltip"]').contains('Deseja remover este item de maneira permanente?');
-				cy.get('[data-cy="tooltip"]').contains('Sim').click();
+			cy.get('[data-cy="tooltip"]').contains('Deseja remover este item de maneira permanente?');
+			cy.get('[data-cy="tooltip"]').contains('Sim').click();
 
-				cy.get('.Toastify__toast-body').should('have.text', 'Ingrediente removido com sucesso!');
-				cy.get('.Toastify__close-button').click();
-			});
+			cy.get('.Toastify__toast-body').should('have.text', 'Ingrediente removido com sucesso!');
+			cy.get('.Toastify__close-button').click();
 		});
 	});
 

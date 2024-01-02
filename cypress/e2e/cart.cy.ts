@@ -3,13 +3,8 @@ import recipes from '../fixtures/recipes.json';
 describe('cart spec', () => {
 	beforeEach(() => {
 		cy.visit('/recipes');
-
-		cy.intercept('POST', `${Cypress.env('apiUrl')}/order`, { statusCode: 200 });
-		cy.intercept('GET', `${Cypress.env('apiUrl')}/recipe`, {
-			statusCode: 200,
-			body: recipes,
-		});
-
+		cy.intercept('POST', `${Cypress.env('apiUrl')}/order`);
+		cy.intercept('GET', `${Cypress.env('apiUrl')}/recipe`, { fixture: 'recipes.json' });
 		cy.wait(500);
 	});
 

@@ -1,19 +1,10 @@
 import recipes from '../fixtures/recipes.json';
-import ingredients from '../fixtures/ingredientList.json';
 
 describe('recipes spec', () => {
 	beforeEach(() => {
 		cy.intercept('POST', `${Cypress.env('apiUrl')}/recipe`, { statusCode: 200 });
-
-		cy.intercept('GET', `${Cypress.env('apiUrl')}/recipe`, {
-			statusCode: 200,
-			body: recipes,
-		});
-
-		cy.intercept('GET', `${Cypress.env('apiUrl')}/ingredient`, {
-			statusCode: 200,
-			body: ingredients,
-		});
+		cy.intercept('GET', `${Cypress.env('apiUrl')}/recipe`, { fixture: 'recipes.json' });
+		cy.intercept('GET', `${Cypress.env('apiUrl')}/ingredient`, { fixture: 'ingredientList.json' });
 
 		cy.visit('/recipes');
 		cy.wait(500);
